@@ -49,4 +49,19 @@ public class ProductDao {
 		}
 		return 0;
 	}
+	
+	//删除指定的物品
+	public static int delProductById(String id){
+		Connection con = ContectDB.getDbConnection();
+		try {
+			Statement sta = con.createStatement();
+			String sql = "delete from product where id = " + id;
+			return sta.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 }

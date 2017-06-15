@@ -30,7 +30,7 @@
     			<th><%=d.getId() %></th>
     			<th><%=d.getPname() %></th>
     			<th>
-    				<a href="#">[删除]</a>
+    				<a href="/UserInfo/ProductController?act=3&uid=<%=d.getUid() %>&id=<%=d.getId() %>">[删除]</a>
     				<a href="#">[编辑]</a>
     			</th>
     		</tr>

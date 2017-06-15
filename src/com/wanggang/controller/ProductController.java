@@ -43,6 +43,7 @@ public class ProductController extends HttpServlet {
 		 * 0 查看详情
 		 * 1添加物品页面显示
 		 * 2添加物品操作
+		 * 3删除物品
 		 */
 		if(act.equals("0")){
 			getUserDetail(request, response);
@@ -50,7 +51,33 @@ public class ProductController extends HttpServlet {
 			addProduct(request, response);
 		}else if (act.equals("2")){
 			addProductHandle(request, response);
+		}else if(act.equals("3")){
+			delProductHandle(request, response);
 		}
+	}
+
+	private void delProductHandle(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		String uid = request.getParameter("uid");
+		if(id == null || id.trim().equals("")){
+			System.out.println("该物品不存在");
+			return;
+		}
+		
+		if(uid == null || uid.trim().equals("")){
+			System.out.println("该物品所属人不存在,无法删除");
+			return;
+		}
+		
+		ProductDao.delProductById(id);
+		
+		try {
+			response.sendRedirect("/UserInfo/ProductController?act=0&id=" + uid);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void addProductHandle(HttpServletRequest request, HttpServletResponse response) {
