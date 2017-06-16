@@ -31,7 +31,7 @@
     			<th><%=d.getPname() %></th>
     			<th>
     				<a href="/UserInfo/ProductController?act=3&uid=<%=d.getUid() %>&id=<%=d.getId() %>">[删除]</a>
-    				<a href="#">[编辑]</a>
+    				<a href="/UserInfo/ProductController?act=4&id=<%=d.getId() %>">[编辑]</a>
     			</th>
     		</tr>
     		<%

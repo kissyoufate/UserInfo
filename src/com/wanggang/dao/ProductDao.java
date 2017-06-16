@@ -33,14 +33,33 @@ public class ProductDao {
 
 		return list;
 	}
-	
-	//在指定ID下添加一个物品
-	public static int addProductOrderById(String id,String p){
+
+	// 通过ID查找物品
+	public static Product getProductById(String id) {
 		Connection con = ContectDB.getDbConnection();
 		try {
 			Statement sta = con.createStatement();
-			String sql = "insert into product values(null,"+id+",'"+p+"')";
-			
+			String sql = "select *from product where id = " + id;
+			ResultSet rs = sta.executeQuery(sql);
+			Product p = null;
+			while (rs.next()) {
+				p = new Product(rs.getInt("id"), rs.getInt("uid"), rs.getString("pname"));
+			}
+			return p;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// 在指定ID下添加一个物品
+	public static int addProductOrderById(String id, String p) {
+		Connection con = ContectDB.getDbConnection();
+		try {
+			Statement sta = con.createStatement();
+			String sql = "insert into product values(null," + id + ",'" + p + "')";
+
 			System.out.println(sql);
 			return sta.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -49,9 +68,9 @@ public class ProductDao {
 		}
 		return 0;
 	}
-	
-	//删除指定的物品
-	public static int delProductById(String id){
+
+	// 删除指定的物品
+	public static int delProductById(String id) {
 		Connection con = ContectDB.getDbConnection();
 		try {
 			Statement sta = con.createStatement();
@@ -61,7 +80,21 @@ public class ProductDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		return 0;
+	}
+
+	// 编辑指定物品
+	public static int editProductById(String id, String name) {
+		Connection con = ContectDB.getDbConnection();
+		try {
+			Statement sta = con.createStatement();
+			String sql = "update product set pname = '" + name + "' where id = " + id;
+			return sta.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 }
